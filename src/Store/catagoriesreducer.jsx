@@ -8,8 +8,8 @@ let initialState = {
             description: 'jlayeh',
         },
         {
-            name: 'food',
-            display_name: 'Food',
+            name: 'fruit',
+            display_name: 'Fruit',
             description: 'Zake',
         },
     ],
@@ -21,10 +21,17 @@ const categories = (state = initialState, action) => {
     switch (type) {
         case 'ACTIVE':
             let activeCategories = initialState.categories.find((category) => category.name === payload);
-            return { categories: initialState.categories, activeCategories };
+            return { ...state, activeCategories: activeCategories };
         default:
             return state;
     }
 };
 
 export default categories;
+
+export const active = (categoryName) => {
+    return {
+        type: 'ACTIVE',
+        payload: categoryName,
+    };
+};
