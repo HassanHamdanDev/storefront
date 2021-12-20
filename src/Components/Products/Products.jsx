@@ -7,7 +7,6 @@ import {
     ImageList,
     ImageListItemBar,
     ImageListItem,
-    ListSubheader,
     IconButton,
     Button
 } from '@mui/material';
