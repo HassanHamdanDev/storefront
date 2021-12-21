@@ -1,0 +1,12 @@
+.simpleCart{
+    position: sticky ;
+    z-index: 1;
+    top :0  ;
+    float: right ;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    width: 400px;
+    box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;
+
+}
