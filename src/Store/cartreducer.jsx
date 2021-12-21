@@ -11,15 +11,22 @@ const cart = (state = initialState, action) => {
     let { type, payload } = action;
     switch (type) {
         case 'SHOW_CART':
-            return { ...state, show: !state.show }
+            return { ...state, show: true }
         case 'ADD_TO_CART':
-            let newCart = initialState.cartItems.push(payload);
-            const uniqueCarts = [...new Set(newCart)];
-            return { ...state, cartItems: uniqueCarts, totalPrice: state.totalPrice + payload.price }
-        case 'REMOVE_FROM_CART':
             return {
-                ...state, cartItems: state.cartItems.filter(elem => elem.id !== payload.id),
-                totalPrice: state.totalPrice - payload.price
+                ...state,
+                cartItems: [...state.cartItems, payload],
+                cartCount: state.cartCount += 1,
+                totalPrice: state.totalPrice += payload.price
+            }
+        case 'REMOVE_FROM_CART':
+            let afterDeleteCart = state.cartItems.filter(elem => elem.id !== payload.id);
+            return {
+                ...state,
+                cartItems: afterDeleteCart,
+                cartCount: state.cartCount -= 1,
+                totalPrice: state.totalPrice -= payload.price,
+                show: state.cartCount === 0 ? false : true
             }
         default:
             return state;
@@ -50,3 +57,4 @@ export const removeFromCart = (product) => {
         payload: product,
     };
 };
+

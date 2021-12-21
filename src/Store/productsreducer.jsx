@@ -17,7 +17,7 @@ let initialState = {
             image: 'https://post.healthline.com/wp-content/uploads/2020/09/benefits-of-guavas-732x549-thumbnail-732x549.jpg',
             price: 2.39,
             inventory: 90,
-        },
+        }
     ],
     count: 0,
 };
@@ -30,6 +30,28 @@ const products = (state = initialState, action) => {
                 product.category === payload
             );
             return { ...state, products: products };
+        case 'ADD_TO_CART':
+            let finditem = initialState.products.map((product) => {
+                if (product.id === payload.id) {
+                    product.inventory -= 1;
+                }
+                return product;
+            });
+            return {
+                ...state,
+                products: finditem
+            }
+        case 'REMOVE_FROM_CART':
+            let findItem = initialState.products.map((product) => {
+                if (product.id === payload.id) {
+                    product.inventory += 1;
+                }
+                return product;
+            });
+            return {
+                ...state,
+                products: findItem,
+            }
         default:
             return state;
     }
@@ -41,5 +63,18 @@ export const active = (categoryName) => {
     return {
         type: 'ACTIVE',
         payload: categoryName,
+    };
+};
+export const addToCart = (product) => {
+    return {
+        type: 'ADD_TO_CART',
+        payload: product,
+    };
+};
+
+export const removeFromCart = (product) => {
+    return {
+        type: 'REMOVE_FROM_CART',
+        payload: product,
     };
 };
